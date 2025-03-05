@@ -190,10 +190,10 @@ while True:
 
 
 
-    if not jump1:
-        if type_user[pygame.K_SPACE]:
-            jump1 = True
-        elif type_user[pygame.K_SPACE]:
+    # if not jump1:
+    #     if type_user[pygame.K_SPACE]:
+    #         jump1 = True
+    #     elif type_user[pygame.K_SPACE]:
 
 
 
