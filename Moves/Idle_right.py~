@@ -1,0 +1,16 @@
+import pygame
+
+size = (100, 100)
+
+Idle_right = [
+    pygame.transform.scale(pygame.image.load("images/Idle_right/Idle (1).png").convert_alpha(), size),
+    pygame.transform.scale(pygame.image.load("images/Idle_right/Idle (2).png").convert_alpha(), size),
+    pygame.transform.scale(pygame.image.load("images/Idle_right/Idle (3).png").convert_alpha(), size),
+    pygame.transform.scale(pygame.image.load("images/Idle_right/Idle (4).png").convert_alpha(), size),
+    pygame.transform.scale(pygame.image.load("images/Idle_right/Idle (5).png").convert_alpha(), size),
+    pygame.transform.scale(pygame.image.load("images/Idle_right/Idle (6).png").convert_alpha(), size),
+    pygame.transform.scale(pygame.image.load("images/Idle_right/Idle (7).png").convert_alpha(), size),
+    pygame.transform.scale(pygame.image.load("images/Idle_right/Idle (8).png").convert_alpha(), size),
+    pygame.transform.scale(pygame.image.load("images/Idle_right/Idle (9).png").convert_alpha(), size),
+    pygame.transform.scale(pygame.image.load("images/Idle_right/Idle (10).png").convert_alpha(), size)
+]
