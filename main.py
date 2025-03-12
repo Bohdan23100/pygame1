@@ -7,6 +7,7 @@ from Moves.run_right import run_right
 from Moves.run_left import run_left
 from Moves.Idle_left import Idle_left
 from Moves.Idle_right import Idle_right
+from HP.player.hp_player import Player
 
 clock = pygame.time.Clock()
 pygame.init()
@@ -44,22 +45,50 @@ jump_count = 7
 player_speed = 5
 player_speed_spead = 8
 
-ghost_left_x = 0
+ghost_left_x = 500
 ghost_right_x = 1280
+ghost_y = 500
+
+
+WHITE = (255, 255, 255)
+GREEN = (0, 255, 0)
+YELLOW = (255, 255, 0)
+RED = (200, 0, 0)
+BLACK = (0, 0, 0)
+
+player_hp = Player()
 
 while True:
 
     # color1(color2)
 
-    screen.blit(bg, (bg_x, 0))
 
-    screen.blit(ghost_right, (ghost_right_x, 700))
-    screen.blit(ghost_left, (ghost_left_x, 700))
+
+    # player_hp.take_damage(80)
+
+    screen.blit(bg, (bg_x, 0))
+    screen.blit(ghost_right, (ghost_right_x, ghost_y))
+    screen.blit(ghost_left, (ghost_left_x, ghost_y))
+
+
+
     player_rect = Idle_right[0].get_rect(topleft=(player_x, player_y))
-    ghost_left_rect = ghost_left.get_rect(topleft=(ghost_left_x,700))
-    ghost_right_rect = ghost_right.get_rect(topleft=(ghost_right_x,700))
+
+    ghost_left_rect = ghost_left.get_rect(topleft=(ghost_left_x,ghost_y))
+    ghost_right_rect = ghost_right.get_rect(topleft=(ghost_right_x,ghost_y))
+
+
+
+    player_hp.draw(screen, player_x, player_y)
+
+
+
 
     if player_rect.colliderect(ghost_left_rect) or player_rect.colliderect(ghost_right_rect):
+        player_hp.take_damage(0.5)
+        print(f"Здоров'я гравця: {player_hp.health}")
+
+    if player_hp.health == 0:
         print("Game Over")
         break
 
@@ -145,5 +174,5 @@ while True:
         #     if event.key == pygame.K_m:
         #         color2 = ( 70, 79, 184 )
 
-    clock.tick(25)
+    clock.tick(28)
     pygame.display.update()
