@@ -1,4 +1,5 @@
 import pygame
+import random
 from Moves.walk_right import walk_right
 from Moves.walk_left import walk_left
 from Moves.jump_right import jump_right
@@ -13,6 +14,9 @@ from Moves.ghost_left import ghost_left
 from CLASS.ghost.ghost import Ghost
 from Moves.attack_right import attack_right
 from Moves.attack_left import attack_left
+from CLASS.heart.heart import Heart
+from CLASS.Kill_counter.Kill_counter import KillCounter
+
 clock = pygame.time.Clock()
 pygame.init()
 screen = pygame.display.set_mode((1280,748))     #flags=pygame.NOFRAME
@@ -56,7 +60,7 @@ player_speed_spead = 8
 
 
 ghost_y = 530
-ghost_speed = 4
+ghost_speed = 2
 
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
@@ -68,6 +72,8 @@ BLACK = (0, 0, 0)
 ghosts = [Ghost(ghost_right, ghost_left, ghost_speed) for _ in range(5)]
 ghosts.append(Ghost(ghost_right, ghost_left, ghost_speed))
 player_hp = Player()
+heart = Heart(random.randint(30, 800), 530)
+kills = KillCounter(10, 10, pygame.font.SysFont("Arial", 30))
 while True:
 
 
@@ -79,12 +85,25 @@ while True:
     # 🏃‍♂️ Отримання хитбоксу гравця
     player_rect = Idle_right[0].get_rect(topleft=(player_x, player_y))
 
+
     # 👽 Перевірка зіткнення гравця з привидом (отримання урону)
     for ghost in ghosts:
         ghost_rect = ghost.image_right.get_rect(topleft=(ghost.x, ghost.y))
         if player_rect.colliderect(ghost_rect):
-            player_hp.take_damage(0.5)
+            player_hp.take_damage(0.2)
             print(f"Здоров'я гравця: {player_hp.health}")
+
+
+    # 🎨 Перевірка зіткнення гравця з серцем
+    if player_rect.colliderect(heart.rect):
+        heart.hp(player_hp)
+        heart.rect.x = random.randint(30, 800)
+        heart.rect.y = 530
+        print(f"Гравець підібрав серце! HP: {player_hp.health}")
+
+    # 🎨 Відображення серця
+    heart.draw(screen)
+
 
     # 🔄 Оновлення всіх ворогів
     for ghost in ghosts:
@@ -93,11 +112,6 @@ while True:
 
     # ❤️ Відображення CLASS гравця
     player_hp.draw(screen, player_x, player_y)
-
-
-
-
-
 
 
     # 💀 Перевірка на кінець гри, якщо CLASS = 0
@@ -131,6 +145,13 @@ while True:
                 ghost.take_damage(1)
                 print(f"Здоров'я привида: {ghost.health}")
 
+                if ghost.health <= 0:
+                    kills.add_kill()
+
+
+
+    # 📊 Відображення кількості убитих привидів
+    kills.draw(screen)
 
     # ⬅️➡️ Рух гравця вліво/вправо
     if attack == False:
@@ -178,6 +199,7 @@ while True:
     player_anim_count += 1
     if player_anim_count == len(Idle_right):
         player_anim_count = 0
+
 
 
 

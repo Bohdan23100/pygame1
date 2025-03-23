@@ -24,7 +24,7 @@ class Player:
     def draw(self, screen, player_x, player_y):
         self.draw_health_bar(screen, player_x, player_y)
 
-    # ⚕️ Малюємо HP бар
+    #
     def draw_health_bar(self, screen, player_x, player_y):
 
         bar_width = 100
@@ -38,7 +38,7 @@ class Player:
         health_width = int(bar_width * health_percentage)
 
 
-        # 🎨 Вибір кольору залежно від рівня HP
+
         if health_percentage > 0.6:
             color = GREEN
         elif health_percentage > 0.3:

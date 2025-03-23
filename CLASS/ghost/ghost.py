@@ -1,5 +1,6 @@
 import pygame
 import random
+from CLASS.Kill_counter.Kill_counter import KillCounter
 
 # 🎨 Кольори для шкали здоров'я
 WHITE = (255, 255, 255)
@@ -96,3 +97,4 @@ class Ghost:
     # 💀 Отримання урону
     def take_damage(self, amount):
         self.health = max(0, self.health - amount)
+
